@@ -1,34 +1,15 @@
-import React, { Component } from "react";
+import List from './components/List/List'
+import ListClass from './components/List/ListClass'
 
-import ListClass from "./components/List/ListClass";
-import User from "./components/User/User";
+function App() {
+  const animals = [`cat`, `dog`, `lion`, `tiger`];
 
-export default class App extends Component {
-  state = {
-    animals: [`cat`, `dog`, `lion`, `tiger`, `mouse`],
-    showList: true,
-    user: {
-      name: `Taras`,
-      age: 50,
-      city: `Kharkiv`
-    }
-  };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        showList: false,
-      });
-    }, 3000);
-  }
-
-  render() {
-    const { animals, showList, user } = this.state;
-
-    return (
-      <>
-        <User user={user} />
-      </>
-    );
-  }
+  return (
+    <>
+      <List list={animals} />
+      <ListClass list={animals} color="red" />
+    </>
+  );
 }
+
+export default App;

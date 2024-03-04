@@ -1,56 +1,29 @@
-import { Component } from "react";
-import "./style.sass";
-
-import ListItem from "./ListItem";
+import React, { Component } from 'react'
 
 export default class ListClass extends Component {
-  state = { ...this.props, borderColor: `transparent`, removeItem: null };
+    constructor(props){
+        super(props);
 
-  componentDidMount() {
-    console.log(`in componentDidMount List`);
+        // this.state = {...this.props};
 
-    const removeItem = setInterval(() => {
-      this.setState(
-        {
-          list: this.state.list.slice(0, -1),
-        },
-        () => {
-          console.log(this.state.list);
+        setTimeout(() => {
 
-          !this.state.list.length && clearInterval(removeItem);
-
-          if (
-            this.state.list.length === Math.round(this.props.list.length / 2)
-          ) {
             this.setState({
-              borderColor: `red`,
-            });
-          }
-        }
-      );
-    }, 1000);
+                list: this.state.list.slice(0, -1),
+                color: `blue`
+            })
+            
+            console.log(this.state.list);
+        }, 1000)
+    }
 
-    this.setState({ removeItem });
-  }
-
-  componentDidUpdate() {
-    console.log(`in componentDidUpdate List`);
-  }
-
-  componentWillUnmount() {
-    console.log(`in componentWillUnmount List`);
-    clearInterval(this.state.removeItem);
-  }
+    state = {...this.props};
 
   render() {
-    const { list = [], borderColor } = this.state;
+    const {list=[], color} = this.state;
 
-    return list.length ? (
-      <ul className="list" style={{ borderColor }}>
-        {list.map((item, index) => (
-          <ListItem key={index} item={item} />
-        ))}
-      </ul>
-    ) : null;
+    return list.length ? <ul style={{color}}>
+        {list.map((item, index) => <li key={index}>{item}</li>)}
+    </ul> : null;
   }
 }
