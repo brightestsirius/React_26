@@ -1,32 +1,36 @@
-import React, { Component } from "react";
-import List from "./components/List/List";
-import User from "./components/User/User";
-import Counter from "./components/Counter/Counter";
+import React, { Component } from 'react'
 
-import ListFn from "./components/ListFn/ListFn";
+import List from './components/List/List'
+import User from './components/User/User'
 
 export default class App extends Component {
+
   state = {
-    list: [`cat`, `dog`, `lion`],
+    animals: [`cat`, `dog`, `lion`, [`red`, `blue`, `yellow`], `tiger`],
     showList: true,
     user: {
       name: `Taras`,
       age: 50,
-      city: `Kyiv`,
-    },
-  };
+      city: `Kharkiv`
+    }
+  }
 
-  componentDidMount() {
+  componentDidMount(){
     setTimeout(() => {
       this.setState({
-        showList: false,
-      });
-    }, 2000);
+        showList: false
+      })
+    }, 7000)
   }
 
   render() {
-    const { list, showList, user } = this.state;
+    const {animals, showList, user} = this.state;
 
-    return <>{showList && <ListFn list={list} />}</>;
+    return (
+      <>
+        {/* {showList && <List list={animals} />} */}
+        <User user={user} />
+      </>
+    )
   }
 }
