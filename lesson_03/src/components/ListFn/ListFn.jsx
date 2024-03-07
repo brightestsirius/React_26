@@ -2,37 +2,35 @@ import React, { useState, useEffect } from "react";
 
 export default function ListFn({ list: propsList = [] }) {
   const [list, setList] = useState(propsList);
-  const [color, setColor] = useState(`black`);
-  const [heading, setHeading] = useState(`Heading`);
+  const [removeItemInt, setRemoveItemInt] = useState();
 
   useEffect(() => {
-    setTimeout(() => {
-      setList(list.slice(0, -1));
-    }, 1000);
+      const interval = setInterval(() => {
+        console.log(`in interval`);
+        setList(prevState => prevState.slice(0, -1));
+      }, 1000);
 
-    setTimeout(() => {
-      setHeading(`Heading Changed`);
-    }, 2000);
+      setRemoveItemInt(interval);
+
+      return () => {
+        console.log(`in componentWillUnmount in first useEffect`);
+        clearInterval(interval);
+      }
   }, []);
 
   useEffect(() => {
-    if (propsList !== list) setColor(`crimson`);
+    !list.length && clearInterval(removeItemInt);
+
+    return () => {
+      console.log(`in componentWillUnmount in second useEffect`);
+    }
   }, [list]);
 
-  useEffect(() => {
-    if (propsList !== list) setColor(`green`);
-  }, [heading]);
-
-  return (
-    <>
-      <h3>{heading}</h3>
-      {list.length ? (
-        <ul style={{ color }}>
-          {list.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      ) : null}
-    </>
-  );
+  return list.length ? (
+    <ul>
+      {list.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  ) : null;
 }

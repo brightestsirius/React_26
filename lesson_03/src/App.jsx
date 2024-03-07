@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import List from "./components/List/List";
 import User from "./components/User/User";
-import Counter from './components/Counter/Counter'
+import Counter from "./components/Counter/Counter";
 
-import ListFn from './components/ListFn/ListFn'
+import ListFn from "./components/ListFn/ListFn";
 
 export default class App extends Component {
   state = {
@@ -27,10 +27,6 @@ export default class App extends Component {
   render() {
     const { list, showList, user } = this.state;
 
-    return (
-      <>
-        <ListFn list={list} />
-      </>
-    );
+    return <>{showList && <ListFn list={list} />}</>;
   }
 }
