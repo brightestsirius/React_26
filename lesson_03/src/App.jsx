@@ -3,6 +3,8 @@ import List from "./components/List/List";
 import User from "./components/User/User";
 import Counter from './components/Counter/Counter'
 
+import ListFn from './components/ListFn/ListFn'
+
 export default class App extends Component {
   state = {
     list: [`cat`, `dog`, `lion`],
@@ -27,7 +29,7 @@ export default class App extends Component {
 
     return (
       <>
-        <Counter />
+        <ListFn list={list} />
       </>
     );
   }
