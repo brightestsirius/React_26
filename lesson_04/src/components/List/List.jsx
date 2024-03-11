@@ -1,22 +1,14 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-import todos from "./../../services/todos";
-import ListForm from "./ListForm";
-import ListItem from "./ListItem";
-
-export default class List extends Component {
-  constructor() {
-    super();
-
-    this.liftingTodo = this.liftingTodo.bind(this);
-  }
+export default class List extends PureComponent {
   state = {
     list: [],
   };
 
   async componentDidMount() {
     try {
-      let response = await todos.get();
+      let request = await fetch(`https://jsonplaceholder.typicode.com/todos`),
+        response = await request.json();
 
       this.setState({
         list: response.slice(0, 10),
@@ -28,7 +20,10 @@ export default class List extends Component {
 
   async handleDelete(id) {
     try {
-      await todos.delete(id);
+      await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+        method: `DELETE`,
+      });
+
       this.setState((actualState) => ({
         list: actualState.list.filter((item) => item.id !== id),
       }));
@@ -37,47 +32,43 @@ export default class List extends Component {
     }
   }
 
-  async handleComplete(item) {
-    try {
-      let response = await todos.patch(item.id, { completed: !item.completed });
-
-      this.setState((actualState) => ({
-        list: actualState.list.map((el) => {
-          if (el.id === response.id) el = response;
-          return el;
+  async handleComplete(item){
+    try{
+        let request = await fetch(`https://jsonplaceholder.typicode.com/todos/${item.id}`, {
+            method: `PATCH`,
+            body: JSON.stringify({completed: !item.completed}),
+            headers: {
+                "Content-type": "application/json"
+            }
         }),
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  }
+        response = await request.json();
 
-  liftingTodo(value) {
-    this.setState((actualState) => ({
-      list: [...actualState.list, value],
-    }));
+        this.setState(actualState => ({
+            list: actualState.list.map(el => {
+                if(el.id === response.id) el=response;
+                return el;
+            })
+        }));
+
+    } catch(err){
+        console.log(err);
+    }
+
   }
 
   render() {
     const { list } = this.state;
 
-    return (
-      <>
-        <ListForm liftingTodo={this.liftingTodo} />
-
-        {list.length ? (
-          <ul>
-            {list.map((item) => (
-              <ListItem
-                key={item.id}
-                item={item}
-                handleDelete={() => this.handleDelete(item.id)}
-                handleComplete={() => this.handleComplete(item)}
-              />
-            ))}
-          </ul>
-        ) : null}
-      </>
-    );
+    return list.length ? (
+      <ul>
+        {list.map((item) => (
+          <li key={item.id}>
+            {item.title}{" "}
+            <button onClick={() => this.handleDelete(item.id)}>Delete</button>
+            <input type="checkbox" defaultChecked={item.completed} onChange={() => this.handleComplete(item)} />
+          </li>
+        ))}
+      </ul>
+    ) : null;
   }
 }

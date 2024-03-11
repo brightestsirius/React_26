@@ -2,46 +2,79 @@ import React, { Component } from "react";
 import "./style.sass";
 
 export default class Counter extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.decrement = this.decrement.bind(this);
     this.increment = this.increment.bind(this);
-    this.setValue = this.setValue.bind(this);
+    this.setCounter = this.setCounter.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDisable = this.handleDisable.bind(this);
   }
+
   state = {
     counter: 0,
-    handleValue: 0,
+    inputValue: undefined,
+    btnDisabled: false,
   };
 
   decrement() {
-    this.setState((actualState) => ({ counter: actualState.counter - 1 }));
+    this.setState(
+      (actualState) => ({
+        counter: actualState.counter - 1,
+      }),
+      () => {
+        console.log(`in setState callback-fn`, this.state.counter);
+      }
+    );
   }
 
   increment() {
-    this.setState((actualState) => ({ counter: actualState.counter + 1 }));
+    this.setState((actualState) => ({
+      counter: actualState.counter + 1,
+    }));
   }
 
-  setValue(e) {
-    this.setState({ handleValue: +e.target.value });
+  setCounter(event) {
+    this.setState({
+      inputValue: +event.target.value,
+    });
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    this.setState((actualState) => ({ counter: actualState.handleValue }));
+  handleSubmit(event) {
+    event.preventDefault();
+    this.handleDisable();
+
+    this.setState(
+      (actualState) => ({
+        counter: actualState.inputValue,
+      }),
+      () => {
+        setTimeout(() => {
+          this.handleDisable();
+        }, 1500);
+      }
+    );
+  }
+
+  handleDisable() {
+    this.setState((actualState) => ({
+      btnDisabled: !actualState.btnDisabled,
+    }));
   }
 
   render() {
-    const { counter } = this.state;
+    const { counter, btnDisabled } = this.state;
 
     return (
       <div className="counter">
         <button onClick={this.decrement}>-</button>
         <span>{counter}</span>
         <button onClick={this.increment}>+</button>
+
         <form onSubmit={this.handleSubmit}>
-          <input type="number" onChange={this.setValue} />
+          <input type="number" onChange={this.setCounter} />
+          <button disabled={btnDisabled}>Set counter value</button>
         </form>
       </div>
     );
