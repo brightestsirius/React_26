@@ -1,35 +1,56 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./style.sass";
+import React, {useState, useEffect} from "react";
+import './style.sass';
+
+// hook -> fn which start with "use"
+
+// useEffect( ()=>{ ... } )
+// useEffect( ()=>{...}, [] ) === componentDidMount
+// useEffect( ()=>{...}, [value] ) === componentDidUpdate(value)
 
 export default function Counter() {
-  const [counter, setCounter] = useState(0);
-  const [handleValue, setHandleValue] = useState(``);
+    const [counter, setCounter] = useState(0);
+    const [color, setColor] = useState(`crimson`);
 
-  const valueInput = useRef();
+    useEffect(() => {
+        console.log(`in useEffect`);
 
-  useEffect(() => {
-    if(handleValue){
-        setHandleValue(``);
-        valueInput.current.blur();
-    }
-  }, [counter])
+        // const interval = setInterval(() => {
+        //     setCounter((prevState) => prevState+1);
+        // }, 1000);
 
-  const decrement = () => setCounter(prevState => prevState-1);
-  const increment = () => setCounter(prevState => prevState+1);
-  const handleChange = (e) => setHandleValue(+e.target.value);
-  const handleSubmit = e => {
-    e.preventDefault();
-    setCounter(handleValue);
-  }
+        setTimeout(() => {
+            setColor(`green`);
+        }, 1500);
 
-  return (
-    <div className="counter">
-      <button onClick={decrement}>-</button>
-      <span>{counter}</span>
-      <button onClick={increment}>+</button>
-      <form onSubmit={handleSubmit}>
-        <input ref={valueInput} type="number" value={handleValue} onChange={handleChange} />
-      </form>
-    </div>
-  );
+        setTimeout(() => {
+            setColor(`blue`);
+        }, 3000);
+
+        return () => {
+            console.log(`in componentWillUnmount`);
+            // clearInterval(interval);
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log(`in useEffect for color`, color);
+
+        return () => {
+            console.log(`in componentWillUnmount in useEffect for color`, color);
+        }
+    }, [color])
+
+    // useEffect(() => {
+    //     console.log(`in useEffect for counter`, counter);
+    // }, [counter])
+
+    // useEffect(() => {
+    //     console.log(`in useEffect for counter && color`, counter, color);
+    // }, [counter, color])
+
+  return <div className="counter">
+    <button>-</button>
+    <span style={{color}}>{counter}</span>
+    <button>+</button>
+  </div>;
 }

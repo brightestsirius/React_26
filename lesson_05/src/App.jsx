@@ -1,22 +1,18 @@
-import React, {useEffect, useState} from "react";
-import Counter from "./components/Counter/Counter";
-import List from "./components/List/List";
-import CombineComponents from './components/CombineComponents/CombineComponents'
+import React, {useState, useEffect} from 'react'
+import Counter from './components/Counter/Counter'
 
 export default function App() {
-  const [showList, setShowList] = useState(true);
+  const [showCounter, setShowCounter] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setShowList(false);
-    }, 2000)
+      setShowCounter(false);
+    }, 5000)
   }, [])
 
   return (
     <>
-      {/* <Counter /> */}
-      {/* {showList && <List list={[`cat`, `dog`, `lion`, `tiger`]} />} */}
-      <CombineComponents />
+    {showCounter && <Counter />}
     </>
-  );
+  )
 }
