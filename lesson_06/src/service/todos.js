@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API = `https://jsonplaceholder.typicode.com/todos`;
+const API = `https://65ef5bb3ead08fa78a5055fb.mockapi.io/todos`;
 
 const todos = {
     get: () => axios(API).then(({data}) => data),
@@ -9,4 +9,4 @@ const todos = {
     post: (item) => axios.post(API, item).then(({data}) => data)
 }
 
-export default todos;
+export {todos};

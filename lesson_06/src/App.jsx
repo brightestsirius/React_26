@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import List from "./components/List/List";
+import React, { useState, useEffect } from "react";
+import Table from "./components/Table/Table";
 import TodosList from './components/Todos/TodosList'
 
 export default function App() {
@@ -10,10 +10,17 @@ export default function App() {
     { type: `flamingo`, icon: `🦩` },
     { type: `penguin`, icon: `🐧` },
   ]);
+  const [showTable, setShowTable] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowTable(false);
+    }, 3000)
+  }, [])
 
   return (
     <>
-      <List list={animals} />
+      {/* {showTable && <Table list={animals} />} */}
       <TodosList />
     </>
   );
