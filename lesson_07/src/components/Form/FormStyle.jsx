@@ -1,40 +1,42 @@
 import React, { useState, useEffect, memo } from "react";
 
-export default memo(function FormStyle({ liftingStyles }) {
-  const [styles, setStyles] = useState({
+export default memo(function FormStyle({liftingStyle}) {
+  console.log(`in FormStyle`);
+  
+  const [style, setStyle] = useState({
     color: `#000000`,
     backgroundColor: `#ffffff`,
   });
 
-  const handleTextColor = (e) =>
-    setStyles((prevState) => ({ ...prevState, color: e.target.value }));
-  const handleBackgroundColor = (e) =>
-    setStyles((prevState) => ({
+  const handleStyleColor = (e) =>
+    setStyle((prevState) => ({ ...prevState, color: e.target.value }));
+  const handleStyleBg = (e) =>
+    setStyle((prevState) => ({
       ...prevState,
       backgroundColor: e.target.value,
     }));
 
-  useEffect(() => {
-    liftingStyles(styles);
-  }, [styles]);
+    useEffect(() => {
+      liftingStyle(style);
+    }, [style])
 
   return (
     <fieldset>
-      <legend>Style:</legend>
+      <legend>Style</legend>
       <label>
         Text color:{" "}
         <input
           type="color"
-          defaultValue={styles.color}
-          onChange={handleTextColor}
+          defaultValue={style.color}
+          onChange={handleStyleColor}
         />
       </label>
       <label>
-        Background color:{" "}
+        Bg color:{" "}
         <input
           type="color"
-          defaultValue={styles.backgroundColor}
-          onChange={handleBackgroundColor}
+          defaultValue={style.backgroundColor}
+          onChange={handleStyleBg}
         />
       </label>
     </fieldset>

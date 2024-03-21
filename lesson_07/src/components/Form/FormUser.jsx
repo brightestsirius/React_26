@@ -1,14 +1,16 @@
 import React, { useState, useEffect, memo } from "react";
 
 export default memo(function FormUser({liftingUser}) {
+  console.log(`in FormUser`);
+
   const [user, setUser] = useState({
     name: `Taras`,
     surname: `Sheva`,
   });
 
-  const handleName = (e) =>
+  const handleUserName = (e) =>
     setUser((prevState) => ({ ...prevState, name: e.target.value }));
-  const handleSurname = (e) =>
+  const handleUserSurname = (e) =>
     setUser((prevState) => ({ ...prevState, surname: e.target.value }));
 
   useEffect(() => {
@@ -17,17 +19,17 @@ export default memo(function FormUser({liftingUser}) {
 
   return (
     <fieldset>
-      <legend>User:</legend>
+      <legend>User</legend>
       <label>
         Name:{" "}
-        <input type="text" defaultValue={user.name} onChange={handleName} />
+        <input type="text" defaultValue={user.name} onChange={handleUserName} />
       </label>
       <label>
         Surname:{" "}
         <input
           type="text"
           defaultValue={user.surname}
-          onChange={handleSurname}
+          onChange={handleUserSurname}
         />
       </label>
     </fieldset>

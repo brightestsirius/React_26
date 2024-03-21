@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./style.sass";
 
 import FormResult from "./FormResult";
 import FormUser from "./FormUser";
 import FormStyle from "./FormStyle";
 
-export default function Form({ liftingForm }) {
-  const [user, setUser] = useState();
-  const [styles, setStyles] = useState();
-
-  useEffect(() => {
-    liftingForm({...user, ...styles});
-  }, [user, styles]);
+export default function Form() {
+  const [user, setUser] = useState({});
+  const [style, setStyle] = useState({});
 
   return (
     <form>
-      <FormResult user={user} styles={styles} />
+      <FormResult user={user} style={style} />
       <FormUser liftingUser={setUser} />
-      <FormStyle liftingStyles={setStyles} />
+      <FormStyle liftingStyle={setStyle} />
     </form>
   );
 }

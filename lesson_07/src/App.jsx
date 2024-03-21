@@ -1,16 +1,12 @@
-import React, {useState} from "react";
-import Form from "./components/Form/Form";
-import Heading from "./components/Heading/Heading";
-import List from './components/List/List'
+import React from 'react'
+import Form from './components/Form/Form'
+import TodosList from './components/Todos/TodosList'
 
 export default function App() {
-  const [formData, setFormData] = useState();
-
   return (
     <>
-      <Heading formData={formData} />
-      <Form liftingForm={setFormData} />
-      <List />
+      {/* <Form /> */}
+      <TodosList />
     </>
-  );
+  )
 }
