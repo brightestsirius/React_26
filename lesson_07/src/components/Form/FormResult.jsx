@@ -1,6 +1,6 @@
-import React from "react";
+import React, {memo} from "react";
 
-export default function FormResult({ user = {}, styles = {} }) {
+export default memo(function FormResult({ user = {}, styles = {} }) {
   return (
     <fieldset>
       <legend>Result:</legend>
@@ -9,4 +9,4 @@ export default function FormResult({ user = {}, styles = {} }) {
       </h4>
     </fieldset>
   );
-}
+})

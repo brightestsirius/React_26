@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 
-export default function FormStyle({ liftingStyles }) {
+export default memo(function FormStyle({ liftingStyles }) {
   const [styles, setStyles] = useState({
     color: `#000000`,
     backgroundColor: `#ffffff`,
@@ -39,4 +39,4 @@ export default function FormStyle({ liftingStyles }) {
       </label>
     </fieldset>
   );
-}
+});

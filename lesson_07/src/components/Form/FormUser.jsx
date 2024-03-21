@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 
-export default function FormUser({liftingUser}) {
+export default memo(function FormUser({liftingUser}) {
   const [user, setUser] = useState({
     name: `Taras`,
     surname: `Sheva`,
@@ -32,4 +32,4 @@ export default function FormUser({liftingUser}) {
       </label>
     </fieldset>
   );
-}
+})
