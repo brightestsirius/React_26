@@ -1,10 +1,12 @@
 import React from 'react'
-import Countries from './components/Countries/Countries'
+import Form from './components/Form/Form'
+import CountriesBattle from './components/CountriesBattle/CountriesBattle'
 
 export default function App() {
   return (
     <>
-      <Countries />
+      {/* <Form /> */}
+      <CountriesBattle />
     </>
   )
 }
