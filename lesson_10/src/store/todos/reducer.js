@@ -1,12 +1,4 @@
-import {
-  TODOS_SET,
-  TODOS_ITEM_DELETE,
-  TODOS_ITEM_CHANGE,
-  NEW_TODO_TITLE,
-  NEW_TODO_COMPLETED,
-  NEW_TODO_SET,
-  SET_DEFAULT_TODO,
-} from "./actions";
+import actions from "./actions";
 
 import { DEFAULT_TODO } from "./constants";
 
@@ -17,14 +9,14 @@ const initialState = {
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case TODOS_SET:
+    case actions.TODOS_SET:
       return { ...state, todos: payload };
-    case TODOS_ITEM_DELETE:
+    case actions.TODOS_ITEM_DELETE:
       return {
         ...state,
         todos: state.todos.filter((item) => item.id !== payload),
       };
-    case TODOS_ITEM_CHANGE:
+    case actions.TODOS_ITEM_CHANGE:
       return {
         ...state,
         todos: state.todos.map((item) => {
@@ -32,13 +24,13 @@ const reducer = (state, { type, payload }) => {
           return item;
         }),
       };
-    case NEW_TODO_TITLE:
+    case actions.NEW_TODO_TITLE:
       return { ...state, newTodo: { ...state.newTodo, title: payload } };
-    case NEW_TODO_COMPLETED:
+    case actions.NEW_TODO_COMPLETED:
       return { ...state, newTodo: { ...state.newTodo, completed: payload } };
-    case NEW_TODO_SET:
+    case actions.NEW_TODO_SET:
       return { ...state, todos: [...state.todos, payload] };
-    case SET_DEFAULT_TODO:
+    case actions.SET_DEFAULT_TODO:
       return { ...state, newTodo: DEFAULT_TODO };
     default:
       return state;

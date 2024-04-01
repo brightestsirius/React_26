@@ -8,7 +8,7 @@ const NEW_TODO_SET = `NEW_TODO_SET`;
 
 const SET_DEFAULT_TODO = `SET_DEFAULT_TODO`;
 
-export {
+export default {
   TODOS_SET,
   TODOS_ITEM_DELETE,
   TODOS_ITEM_CHANGE,
