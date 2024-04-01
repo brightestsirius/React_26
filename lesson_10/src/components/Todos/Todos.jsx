@@ -1,10 +1,9 @@
 import React from "react";
-import "./style.sass";
+
+import TodosForm from "./TodosForm";
+import TodosList from "./TodosList";
 
 import TodosContext from "./../../contexts/TodosContext";
-
-import TodosList from "./TodosList";
-import TodosForm from "./TodosForm";
 
 import useTodos from "./../../hooks/useTodos";
 

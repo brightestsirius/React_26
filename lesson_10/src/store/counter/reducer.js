@@ -1,23 +1,25 @@
-import { COUNTER_DEC, COUNTER_INC, INPUT_VALUE, COUNTER_SET } from "./actions";
+import actions from './actions'
 
 const initialState = {
-  counter: 0,
-  inputValue: undefined,
-};
+    counter: 0,
+    inputValue: undefined
+}
 
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    case COUNTER_DEC:
-      return { ...state, counter: state.counter - 1 };
-    case COUNTER_INC:
-      return { ...state, counter: state.counter + 1 };
-    case INPUT_VALUE:
-      return { ...state, inputValue: +payload };
-    case COUNTER_SET:
-      return { ...state, counter: state.inputValue };
-    default:
-      return state;
-  }
-};
+const reducer = (state, {type, payload}) => {
+    switch(type){
+        case actions.COUNTER_DECREMENT:
+            return {...state, counter: state.counter-1};
+        case actions.COUNTER_INCREMENT:
+            return {...state, counter: state.counter+1}
+        case actions.INPUT_VALUE_SET:
+            return {...state, inputValue: +payload};
+        case actions.COUNTER_SET:
+            return {...state, counter: state.inputValue};
+        case actions.COUNTER_SET_TEN:
+            return {...state, counter: state.counter+10}
+        default:
+            return state;
+    }
+}
 
-export { reducer, initialState };
+export {initialState, reducer}
