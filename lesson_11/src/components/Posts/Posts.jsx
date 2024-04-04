@@ -3,6 +3,11 @@ import service from "./../../services/jsonplaceholder";
 
 import { Link } from "react-router-dom";
 
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Button from "@mui/material/Button";
+
 export default function Posts() {
   const [posts, setPosts] = useState([]);
 
@@ -14,13 +19,21 @@ export default function Posts() {
   }, []);
 
   return posts.length ? (
-    <ul>
-      {posts.map((item) => (
-        <li key={item.id}>
-          <Link to={`${item.id}`}>{item.title}</Link>{" "}
-          <Link to={`/comments?postId=${item.id}`}>Read comments</Link>
-        </li>
-      ))}
-    </ul>
+    <Paper elevation={3}>
+      <List>
+        {posts.map((item) => (
+          <ListItem key={item.id} sx={{ justifyContent: 'space-between' }}>
+            <Link to={`${item.id}`}>{item.title}</Link>{" "}
+            <Button
+              variant="contained"
+              component={Link}
+              to={`/comments?postId=${item.id}`}
+            >
+              Read comments
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </Paper>
   ) : null;
 }
