@@ -1,25 +1,23 @@
 import React from "react";
-
-import Comments from "./../components/Comments/Comments";
+import PostComments from "./../components/PostComments/PostComments";
 import Button from "./../components/Button/Button";
 
 import { useNavigate } from "react-router-dom";
 
-import useParam from "./../hooks/useParam";
+import useQueryParams from "./../hooks/useQueryParams";
 
 export default function PostCommentsRoute() {
   const navigation = useNavigate();
 
-  const paramPostId = useParam(`postId`);
+  const postId = useQueryParams(`postId`);
+
+  const handleClick = () => navigation(`/posts/${postId}`);
 
   return (
-    <div>
+    <>
       <h4>Post Comments Route</h4>
-      <Comments />
-      <Button
-        title={`Back to Post`}
-        handleClick={() => navigation(`/posts/${paramPostId}`)}
-      />
-    </div>
+      <PostComments />
+      <Button title={`Back to Post`} handleClick={handleClick} />
+    </>
   );
 }

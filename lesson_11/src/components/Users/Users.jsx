@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import service from "./../../services/jsonplaceholder";
+import service from "../../services/jsonplaceholder";
 
 import { Link } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
 import service from "./../../services/jsonplaceholder";
@@ -17,10 +17,8 @@ export default function Post() {
   return Object.keys(post).length ? (
     <ul>
       <li>Title: {post.title}</li>
-      <li>Body: {post.body}</li>
-      <li>
-        <Link to={`comments`}>Read comments</Link>
-      </li>
+      <li>User id: {post.userId}</li>
+      <li><Link to={`/comments?postId=${post.id}`}>Read comments</Link></li>
     </ul>
   ) : null;
 }

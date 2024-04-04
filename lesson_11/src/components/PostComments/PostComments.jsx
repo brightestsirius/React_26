@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-import useParam from "./../../hooks/useParam";
-
 import service from "./../../services/jsonplaceholder";
 
-export default function Comments() {
-  const paramPostId = useParam(`postId`);
+import useQueryParams from "../../hooks/useQueryParams";
 
+export default function PostComments() {
   const [comments, setComments] = useState([]);
+
+  const postId = useQueryParams(`postId`);
 
   useEffect(() => {
     (async () => {
-      const response = await service.get(`posts`, `${paramPostId}/comments`);
+      const response = await service.get(`posts`, `${postId}/comments`);
       setComments(response);
     })();
   }, []);

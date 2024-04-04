@@ -9,20 +9,27 @@ export default function Navigation() {
       element: "Home",
     },
     {
-      path: "users",
-      element: "Users",
-    },
-    {
       path: "posts",
       element: "Posts",
     },
+    {
+      path: "users",
+      element: "Users",
+    },
   ];
+
+  const linkClass = (e) => {
+    return e.isActive ? `active--super` : ``;
+  };
+
   return (
     <nav>
       <ul>
         {nav.map((item, index) => (
           <li key={index}>
-            <NavLink to={item.path}>{item.element}</NavLink>
+            <NavLink to={item.path} className={linkClass}>
+              {item.element}
+            </NavLink>
           </li>
         ))}
       </ul>

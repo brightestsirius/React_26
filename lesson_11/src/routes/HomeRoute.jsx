@@ -1,12 +1,7 @@
-import React from "react";
-
-import Counter from "./../components/Counter/Counter";
+import React from 'react'
 
 export default function HomeRoute() {
   return (
-    <div>
-      <h4>Home Route</h4>
-      <Counter />
-    </div>
-  );
+    <div>HomeRoute</div>
+  )
 }
