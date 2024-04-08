@@ -1,12 +1,11 @@
 import React from "react";
+
 import Todos from "./components/Todos/Todos";
-import Posts from "./components/Posts/Posts";
+
+import Container from '@mui/material/Container';
 
 export default function App() {
-  return (
-    <>
-      <Todos />
-      <Posts />
-    </>
-  );
+  return <Container>
+    <Todos />
+  </Container>;
 }

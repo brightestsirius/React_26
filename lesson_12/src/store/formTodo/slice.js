@@ -1,14 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SLICE } from "./constants";
+import { SLICE, DEFAULT_NEW_TODO } from "./constants";
 
-const initialState = {
-  newTodo: {
-    title: ``,
-    completed: false,
-  },
-};
+const initialState = { newTodo: DEFAULT_NEW_TODO };
 
-export const slice = createSlice({
+const slice = createSlice({
   name: SLICE,
   initialState,
   reducers: {
@@ -18,9 +13,8 @@ export const slice = createSlice({
     setCompleted: (state, { payload }) => {
       state.newTodo.completed = payload;
     },
-  }
+  },
 });
 
 export const { setTitle, setCompleted } = slice.actions;
-
 export default slice.reducer;

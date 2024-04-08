@@ -1,40 +1,30 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setTitle, setCompleted } from "./../../store/todo/slice";
+import { setTitle, setCompleted } from './../../store/formTodo/slice'
 import thunks from './../../store/todos/thunks'
 
 export default function TodosForm() {
-  const { newTodo } = useSelector((state) => state.todo);
+  const { newTodo } = useSelector((state) => state.formTodo);
   const dispatch = useDispatch();
 
-  const handleInput = (e) => dispatch(setTitle(e.target.value));
+  const handleInputTitle = e => dispatch(setTitle(e.target.value));
 
-  const handleCompleted = (e) => dispatch(setCompleted(e.target.checked));
+  const handleInputCompleted = e => dispatch(setCompleted(e.target.checked));
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(thunks.fetchTodo());
+    dispatch(thunks.fetchNewItem());
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Title:{" "}
-        <input
-          type="text"
-          defaultValue={newTodo.title}
-          onChange={handleInput}
-        />
+        Title: <input type="text" defaultValue={newTodo.title} onChange={handleInputTitle} />
       </label>
       <label>
-        Completed:{" "}
-        <input
-          type="checkbox"
-          defaultChecked={newTodo.completed}
-          onChange={handleCompleted}
-        />
+        Completed: <input type="checkbox" defaultChecked={newTodo.completed} onChange={handleInputCompleted} />
       </label>
-      <button>Add item</button>
+      <button>Add todo</button>
     </form>
   );
 }

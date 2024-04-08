@@ -1,28 +1,27 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import thunks from "./../../store/todos/thunks";
+import React from "react";
+
+import useTodosList from "./../../hooks/useTodosList";
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Button from '@mui/material/Button';
 
 export default function TodosList() {
-  const { todos, isLoading } = useSelector((state) => state.todos);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(thunks.fetchTodos());
-  }, []);
+  const { todos, isLoading, itemDelete } = useTodosList();
 
   const handleItemDelete = (id) => {
-    dispatch(thunks.fetchDeleteItem(id));
+    itemDelete(id)
   };
 
   return todos.length ? (
-    <ul>
+    <List>
       {todos.map((item) => (
-        <li key={item.id}>
+        <ListItem key={item.id}>
           {item.title}{" "}
-          <button onClick={() => handleItemDelete(item.id)}>Delete</button>
-        </li>
+          <Button sx={{ml: 2}} variant="contained" onClick={() => handleItemDelete(item.id)}>Delete</Button>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   ) : isLoading ? (
     <p>Loading...</p>
   ) : null;

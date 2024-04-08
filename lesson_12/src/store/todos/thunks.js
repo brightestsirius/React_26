@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SLICE } from "./constants";
-
 import service from "./../../service/todos";
 
 const thunks = {
@@ -12,14 +11,10 @@ const thunks = {
     await service.delete(id);
     return id;
   }),
-  fetchTodo: createAsyncThunk(
-    `${SLICE}/fetchTodo`,
-    async (undefined, thunkApi) => {
-      const todo = thunkApi.getState().todo.newTodo;
-      const response = await service.post(todo);
-      return response;
-    }
-  ),
+  fetchNewItem: createAsyncThunk(`${SLICE}/fetchNewItem`, async (undefined, thunkAPI) => {
+    const response = await service.post(thunkAPI.getState().formTodo.newTodo);
+    return response;
+  }),
 };
 
 export default thunks;
